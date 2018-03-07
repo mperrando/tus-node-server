@@ -191,19 +191,19 @@ describe('FileStore', () => {
     describe('getOffset', () => {
         it('should reject non-existant files', () => {
             const file_store = new FileStore({ path: STORE_PATH });
-            return file_store.getOffset('doesnt_exist')
+            return file_store.getOffset({}, 'doesnt_exist')
                     .should.be.rejectedWith(404);
         });
 
         it('should reject directories', () => {
             const file_store = new FileStore({ path: STORE_PATH });
-            return file_store.getOffset('')
+            return file_store.getOffset({}, '')
                     .should.be.rejectedWith(404);
         });
 
         it('should resolve the stats for existant files', () => {
             const file_store = new FileStore({ path: STORE_PATH });
-            return file_store.getOffset(TEST_FILE_NAME)
+            return file_store.getOffset({}, TEST_FILE_NAME)
                     .should.be.fulfilledWith(fs.statSync(`${FILES_DIRECTORY}/${TEST_FILE_NAME}`));
         });
     });
